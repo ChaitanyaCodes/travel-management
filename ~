@@ -1,0 +1,60 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Distance { 
+private: 
+	int feet; 
+	float inches; 
+public: 
+	void get_data(){
+		cout<<"Enter feet: ";
+		cin>>feet;
+		cout<<"Enter inches: ";
+		cin>>inches;
+		
+		if(inches>=12){
+			int feets=inches/12;
+			inches-=feets*12;
+			feet+=feets;
+		}
+	}
+
+	void print_data(){
+		cout<<feet<<"'- "<<inches<<"\"\n";
+	}
+
+	Distance operator- (const Distance & otherDistance) const{
+		Distance distance;
+		distance.feet = this-> feet-otherDistance.feet;
+		distance.inches = this-> inches-otherDistance.inches;
+		if(inches>=12){
+			int feets=inches/12;
+			distance.inches-=feets*12;
+			distance.feet+=feets;
+		}
+		return distance;
+    }
+};
+
+
+int main () {
+	cout<<"Distance 1: \n";
+	Distance distance1;
+	distance1.get_data();
+	
+	cout<<"\n\nDistance 2: \n";
+	Distance distance2;
+	distance2.get_data();
+	
+	cout<<"\n\nDistance 1:\n";
+	distance1.print_data();
+	cout<<"\nDistance 2: \n";
+	distance2.print_data();
+	
+	Distance result1 = distance1-distance2;  
+	cout<<"\nDistance difference : ";
+	result1.print_data();
+
+	return 0;
+}
